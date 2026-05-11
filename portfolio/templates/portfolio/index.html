@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+
+
+
+{% block title %}Портфель{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    
+    <!-- Форма -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Добавить позицию</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-success">Добавить</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Заголовок портфеля -->
+    <h2 class="mb-3">Портфель</h2>
+    
+    <!-- Список в виде таблицы -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Тикер</th>
+                    <th>Количество</th>
+                    <th>Текущая цена</th>
+                    <th>Стоимость</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in portfolio_items %}
+                <tr>
+                    <td>
+                        <strong>{{ item.ticker }}</strong>
+                        <br>
+                        <small class="text-muted">
+                            <a href="{% url 'portfolio:stock_info' item.ticker %}">Инфо</a> |
+                            <a href="{% url 'portfolio:stock_chart' item.ticker %}">График</a>
+                        </small>
+                    </td>
+                    <td>{{ item.quantity }} шт.</td>
+                    <td>{{ item.current_price|floatformat:2 }} ₽</td>
+                    
+                    <td>
+                        <form method="post" action="{% url 'portfolio:delete_position' item.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Удалить позицию {{ item.ticker }}?')">
+                                Удалить
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">
+                        Портфель пуст. Добавьте первую позицию!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot class="table-dark">
+                <tr>
+                    <th colspan="3" class="text-end">Общая стоимость:</th>
+                    <th colspan="2">{{ item.current_price|floatformat:2 }} ₽</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Голубые фишки (Топ-20 акций)</h2>
+
+<table border="1" cellpadding="8" style="border-collapse: collapse;">
+    <tr>
+        <th>Тикер</th>
+        <th>Название</th>
+        <th>Действия</th>
+    </tr>
+    {% for stock in stocks %}
+    <tr>
+        <td>{{ stock.ticker }}</td>
+        <td>{{ stock.name }}</td>
+        <td>
+            <a href="{% url 'portfolio:stock_info' stock.ticker %}"> ℹ️ Инфо</a> |
+            <a href="{% url 'portfolio:stock_chart' stock.ticker %}"> 📈 График</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p><a href="{% url 'portfolio:index' %}">На главную</a></p>
+{% endblock %}

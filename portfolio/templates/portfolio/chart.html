@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} График {{ ticker }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <h1>График {{ ticker }}</h1>
+    
+    <canvas id="stockChart" width="400" height="200"></canvas>
+    
+    <p><a href="{% url 'portfolio:blue_chips' %}">← Назад к списку</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    const chartData = {{ chart_data_json|safe }};
+    
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: chartData.dates,
+            datasets: [{
+                label: 'Цена закрытия (₽)',
+                data: chartData.prices,
+                borderColor: 'rgb(59, 130, 246)',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                tension: 0.1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Динамика цены за последний месяц'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `₽ ${context.raw.toFixed(2)}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

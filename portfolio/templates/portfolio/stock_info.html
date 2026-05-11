@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Информация о компании {{ ticker }}</h2>
+
+<p>Текущая цена: <strong>{{ price|floatformat:2 }} ₽</strong></p>
+
+<table border="1" cellpadding="8" style="border-collapse: collapse;">
+    <tr>
+        <th>Поле</th>
+        <th>Значение</th>
+    </tr>
+    <tr>
+        <td>Краткое название</td>
+        <td>{{ info.shortname|default:"Нет данных" }}</td>
+    </tr>
+    <tr>
+        <td>Полное название (EN)</td>
+        <td>{{ info.latname|default:"Нет данных" }}</td>
+    </tr>
+    <tr>
+        <td>Сектор экономики</td>
+        <td>{{ info.sector|default:"Нет данных" }}</td>
+    </tr>
+    <tr>
+        <td>ISIN код</td>
+        <td>{{ info.isin|default:"Нет данных" }}</td>
+    </tr>
+</table>
+
+<p>
+    <a href="{% url 'portfolio:stock_chart' ticker %}">📈 Посмотреть график</a> | 
+    <a href="{% url 'portfolio:index' %}">🏠 На главную</a>
+</p>
+{% endblock %}

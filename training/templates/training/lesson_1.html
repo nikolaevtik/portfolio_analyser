@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 1: Стартовый шаблон</title>
+    
+    <!-- Bootstrap 3 (Стабильная версия для учебы) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Bootstrap тема (подключена) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h4><small>здесь может быть объявление</small></h4> <!-- Исправлено: был </h1> -->
+            
+        <!-- Навбар -->
+        <div class='navbar navbar-default'>
+            <div class='container-fluid'>
+                <div class="navbar-header">
+                    <a href="#" class='navbar-brand'>LOGO</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class='active'><a href="#">главная</a></li>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Обратная связь</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+            <mark>test example</mark>
+            <p>second test <mark>with mark</mark></p>
+            
+            <!-- Исправленная цитата: blockquote-reverse сдвигает вправо -->
+            <blockquote class="blockquote-reverse">
+                <p>Великая цитата великого ноунейма</p>
+                <footer>Ноунейм</footer>
+            </blockquote>
+            
+            <a href="{% url 'index' %}" class="btn btn-danger">← На главную</a>
+
+            <h2>Привет, Bootstrap 3!</h2>
+            <p>Здесь мы делаем в точности как в курсе.</p>
+            
+            <!-- container-fluid внутри jumbotron — допустимо, но обычно jumbotron уже сам по себе -->
+            <div class="container-fluid">
+                <h2>3 различных блока</h2>
+                
+
+                
+                <p>Просто текст</p>
+                <code>
+                    <code>from django.urls import path</code>
+                    from . import views
+
+                    urlpatterns = [
+                        path('', views.index, name='index'),
+                        path('search/', views.find_ticker, name='find_ticker'),
+                        path('blue-chips/', views.blue_chips, name='blue_chips'),
+                        path('chart/<str:ticker>/', views.stock_chart, name='stock_chart'),
+                        path('info/<str:ticker>/', views.stock_info, name='stock_info'), 
+                        path('delete/<int:position_id>/', views.delete_position, name='delete_position'),
+                    ]</code>
+                <!-- Исправлено: лишний </div> после row и неправильная вложенность -->
+                <div class='row'>
+                    <div class='col-md-4' style="background-color: #deef47">left</div>
+                    <div class='col-md-4' style="background-color: #294ec7">middle</div>
+                    <div class='col-md-4' style="background-color: #2eaf27">right</div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-9 col-md-4 col-lg-6">first</div>
+                    <div class="col-xs-12 col-sm-3 col-md-8 col-lg-6">second</div>
+                </div>
+                
+                <a href="{% url 'index' %}" class="btn btn-danger">← На главную</a>
+            </div> <!-- Закрываем container-fluid -->
+        </div> <!-- Закрываем jumbotron -->
+    </div> <!-- Закрываем container -->
+
+    <!-- jQuery (нужен для Bootstrap 3) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Bootstrap 3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+</html>

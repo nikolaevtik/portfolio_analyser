@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Поиск тикера{% endblock %}
+
+{% block content %}
+    <h1>Поиск тикера на MOEX</h1>
+    <button class="btn btn-primary">Проверка Bootstrap</button>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Искать</button>
+    </form>
+
+    {% if result is not None %}
+        <h2>Результаты поиска:</h2>
+        {% if result.empty %}
+            <p>Ничего не найдено</p>
+        {% else %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        {% for col in result.columns %}
+                            <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in result.values %}
+                        <tr>
+                            {% for value in row %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endif %}
+{% endblock %}

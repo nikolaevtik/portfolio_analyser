@@ -1,0 +1,29 @@
+{% load static %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'portfolio:index' %}">Инвест Анализатор</a>
+            
+            <!-- Кнопка для мобильных устройств -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Меню (объединенное) -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:index' %}">Портфель</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:find_ticker' %}">Поиск тикера</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:blue_chips' %}">Голубые фишки</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul>
+</header>
