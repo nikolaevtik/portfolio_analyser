@@ -6,14 +6,6 @@ from .forms import PortfolioForm, Search_Tickers
 from .moex_api import get_stock_price, search_ticker, get_candles
 
 
-def total_cost(items: list) -> int:
-    total = 0
-    for item in items:
-        price = get_stock_price(item.ticker)
-        if price is not None:
-            total += price * item.quantity
-    return total
-
 
 def index(request):
     if request.method == 'POST':
@@ -29,13 +21,13 @@ def index(request):
     # Добавляем цену к каждому элементу
     for item in items:
         item.current_price = get_stock_price(item.ticker) or 0
-    
-    total = sum(item.current_price * item.quantity for item in items)
+        item.total = item.quantity * item.current_price
+    total_all = sum(item.current_price * item.quantity for item in items)
     
     return render(request, 'portfolio/index.html', {
         'form': form, 
         'portfolio_items': items, 
-        'total': total
+        'total_all': total_all
     })
 
 
@@ -100,3 +92,6 @@ def stock_info(request, ticker):
         'price': price,
     }
     return render(request, 'portfolio/stock_info.html', context)
+
+
+

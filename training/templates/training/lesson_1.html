@@ -25,8 +25,8 @@
                 <div>
                     <ul class="nav navbar-nav">
                         <li class='active'><a href="#">главная</a></li>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">Обратная связь</a></li>
+                        <li ><a href="#" class="bg-success">О нас</a></li>
+                        <li class="bg-success"><a href="#">Обратная связь</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,15 +36,15 @@
             <p>second test <mark>with mark</mark></p>
             
             <!-- Исправленная цитата: blockquote-reverse сдвигает вправо -->
-            <blockquote class="blockquote-reverse">
+            <blockquote class="blockquote-reverse text-muted">
                 <p>Великая цитата великого ноунейма</p>
                 <footer>Ноунейм</footer>
             </blockquote>
             
             <a href="{% url 'index' %}" class="btn btn-danger">← На главную</a>
 
-            <h2>Привет, Bootstrap 3!</h2>
-            <p>Здесь мы делаем в точности как в курсе.</p>
+            <h2 class="bg-primary">Привет, Bootstrap 3!</h2>
+            <p class="bg-warning">Здесь мы делаем в точности как в курсе.</p>
             
             <!-- container-fluid внутри jumbotron — допустимо, но обычно jumbotron уже сам по себе -->
             <div class="container-fluid">
@@ -52,19 +52,17 @@
                 
 
                 
-                <p>Просто текст</p>
+                <p class="bg-info">Просто текст</p>
                 <code>
                     <code>from django.urls import path</code>
                     from . import views
 
-                    urlpatterns = [
-                        path('', views.index, name='index'),
-                        path('search/', views.find_ticker, name='find_ticker'),
-                        path('blue-chips/', views.blue_chips, name='blue_chips'),
-                        path('chart/<str:ticker>/', views.stock_chart, name='stock_chart'),
-                        path('info/<str:ticker>/', views.stock_info, name='stock_info'), 
-                        path('delete/<int:position_id>/', views.delete_position, name='delete_position'),
                     ]</code>
+                    <br><br>
+                <pre>
+                    for (int i= 0; i < 10; i++)
+                    print("Hi!")
+                </pre>    
                 <!-- Исправлено: лишний </div> после row и неправильная вложенность -->
                 <div class='row'>
                     <div class='col-md-4' style="background-color: #deef47">left</div>
