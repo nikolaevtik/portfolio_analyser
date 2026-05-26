@@ -45,8 +45,43 @@
 
             <h2 class="bg-primary">Привет, Bootstrap 3!</h2>
             <p class="bg-warning">Здесь мы делаем в точности как в курсе.</p>
-            
-            <!-- container-fluid внутри jumbotron — допустимо, но обычно jumbotron уже сам по себе -->
+            <br><br>
+            <a href="http://www.google.com" class="btn btn-default">GOOGLE</a>
+            <input type="submit" class="btn btn-primary" value="Primary">
+            <br><br>
+            <p class="d-inline-flex gap-1">
+                <button type="button" class="btn" data-bs-toggle="button">Toggle button</button>
+                <button type="button" class="btn active" data-bs-toggle="button" aria-pressed="true">Active toggle button</button>
+                <button type="button" class="btn" disabled data-bs-toggle="button">Disabled toggle button</button>
+            </p>
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">  
+                <label class="btn btn-primary" for="btncheck1"></label>       
+                <label class="btn btn-primary" for="btncheck2"></label>       
+                <label class="btn btn-primary" for="btncheck3"></label>
+            </div>
+            <div class="btn-group" role="group">
+                <label class="btn btn-primary">
+                    <input type="checkbox"> Option 1
+                </label>
+                <label class="btn btn-primary">
+                    <input type="checkbox"> Option 2
+                </label>
+                <label class="btn btn-primary">
+                    <input type="checkbox"> Option 3
+                </label>
+            </div>
+            <br><br>
+            <!-- Чекбоксы в "одной копке"-->
+            <div class="btn-toolbar" role="toolbar">
+                <label class="btn btn-primary" style="min-width: 100px; gap: 10px; ">
+                    <input type="checkbox">
+                    <input type="checkbox">
+                    <input type="checkbox">
+                </label>
+                </div>
+            </div><!-- Закрываем тулбар чекбоксов -->
+           
+            <input type="button" class="btn btn-success" value="Подтвердить">
             <div class="container-fluid">
                 <h2>3 различных блока</h2>
                 
@@ -63,7 +98,7 @@
                     for (int i= 0; i < 10; i++)
                     print("Hi!")
                 </pre>    
-                <!-- Исправлено: лишний </div> после row и неправильная вложенность -->
+                
                 <div class='row'>
                     <div class='col-md-4' style="background-color: #deef47">left</div>
                     <div class='col-md-4' style="background-color: #294ec7">middle</div>
@@ -79,7 +114,7 @@
             </div> <!-- Закрываем container-fluid -->
         </div> <!-- Закрываем jumbotron -->
     </div> <!-- Закрываем container -->
-
+    
     <!-- jQuery (нужен для Bootstrap 3) -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <!-- Bootstrap 3 JS -->

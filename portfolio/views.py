@@ -5,26 +5,38 @@ import json
 from .forms import PortfolioForm, Search_Tickers
 from .moex_api import get_stock_price, search_ticker, get_candles
 
-
+APP_NAME = 'portfolio/'
 
 def index(request):
     if request.method == 'POST':
         form = PortfolioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('portfolio:index')
     else:
         form = PortfolioForm()
     
     items = Portfolio.objects.all()
     
+    # Кеш цен на один запрос (чтобы не ходить в API дважды за одним тикером)
+    prices_cache = {}
+    
     # Добавляем цену к каждому элементу
     for item in items:
-        item.current_price = get_stock_price(item.ticker) or 0
-        item.total = item.quantity * item.current_price
-    total_all = sum(item.current_price * item.quantity for item in items)
+        # Проверяем, не запрашивали ли уже цену этого тикера
+        if item.ticker in prices_cache:
+            price = prices_cache[item.ticker]
+        else:
+            price = get_stock_price(item.ticker) or 0
+            prices_cache[item.ticker] = price
+        
+        item.current_price = price
+        item.total = item.quantity * price
     
-    return render(request, 'portfolio/index.html', {
+    # Общая стоимость (используем тот же кеш)
+    total_all = sum(prices_cache[item.ticker] * item.quantity for item in items)
+    
+    return render(request, f'{APP_NAME}index.html', {
         'form': form, 
         'portfolio_items': items, 
         'total_all': total_all
@@ -35,7 +47,7 @@ def delete_position(request, position_id):
     """Удаление позиции из портфеля"""
     item = get_object_or_404(Portfolio, id=position_id)
     item.delete()
-    return redirect('index')
+    return redirect('portfolio:index')
 
 
 def find_ticker(request):
@@ -48,7 +60,7 @@ def find_ticker(request):
     else:
         form = Search_Tickers()
     
-    return render(request, 'portfolio/search.html', {
+    return render(request, f'{APP_NAME}search.html', {
         'form': form, 
         'result': result
     })
@@ -57,7 +69,7 @@ def find_ticker(request):
 def blue_chips(request):
     from .moex_api import get_blue_chips
     stocks = get_blue_chips()
-    return render(request, 'portfolio/blue_chips.html', {'stocks': stocks})
+    return render(request, f'{APP_NAME}blue_chips.html', {'stocks': stocks})
 
 
 def stock_chart(request, ticker):
@@ -73,7 +85,7 @@ def stock_chart(request, ticker):
     }
     
     # Передаем данные в шаблон как JSON строку
-    return render(request, 'portfolio/chart.html', {
+    return render(request, f'{APP_NAME}chart.html', {
         'chart_data_json': json.dumps(chart_data),
         'ticker': ticker
     })
@@ -91,7 +103,7 @@ def stock_info(request, ticker):
         'info': info,
         'price': price,
     }
-    return render(request, 'portfolio/stock_info.html', context)
+    return render(request, f'{APP_NAME}stock_info.html', context)
 
 
 
